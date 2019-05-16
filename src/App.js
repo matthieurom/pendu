@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Keyboard from './Keyboard.js'
+import PropTypes from 'prop-types'
 
 const DEFAULT_STATE = { win: false, isClickedArray: [], count: 0}
 
@@ -12,6 +13,13 @@ class App extends React.Component {
     isClickedArray: [],
     count: 0,
 
+  }
+
+  static propTypes = {
+    win: PropTypes.bool.isRequired,
+    masque: PropTypes.string.isRequired,
+    isClickedArray: PropTypes.array.isRequired,
+    count: PropTypes.number.isRequired
   }
 
   getIsCliked (index) {
@@ -31,17 +39,18 @@ class App extends React.Component {
   handleClick = (a) => {
     const isClickedArray = this.state.isClickedArray
     const masque = this.state.masque
-    const newList = [a]
-    this.setState({isClickedArray: [...isClickedArray, ...newList]}) 
-
     const masqueSplit = masque.split(''); // permet de diviser la phrase ne liste de lettres
-    this.setState({win: masqueSplit.every( (e) => isClickedArray.includes(e))})
-    //vérifie que chaque lettre est inclue dans isClickedArray et si c'est le cas retourne true et update win
 
+    this.setState(previousState => {
+      return {
+        isClickedArray: [...previousState.isClickedArray, a]
+      }
+    }, () => {
+      //vérifie que chaque lettre est inclue dans isClickedArray et si c'est le cas retourne true et update win
+      this.setState({win: masqueSplit.every( (e) => this.state.isClickedArray.includes(e))})
+    });
     //ensuite on udpate le compteur
     this.setState( (state) => ({count: state.count + 1 }))
-
-
   }
   // La fonction handleclick rajoute la key value dans le tableau isClickedArray si le bouton 
   // correspondant est cliqué
@@ -103,7 +112,7 @@ class App extends React.Component {
    else {
      return(
        <div className ="rejouer">
-              <h1> Gagné ! Bien joué</h1>
+              <h1> Gagné en <strong>{count}</strong> coup ! Bien joué</h1>
               <button onClick = {this.handleGame}>Rejouer ?</button>
        </div>
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 
 function Keyboard (props) {
     let letter = props.letter
@@ -11,5 +12,12 @@ return (
 );
    
 }
+
+Keyboard.propTypes = {
+    letter: PropTypes.string.isRequired,
+    onClickButton: PropTypes.func.isRequired,
+    key: PropTypes.string.isRequired,
+    isClicked: PropTypes.bool.isRequired,
+  }
 
 export default Keyboard;
