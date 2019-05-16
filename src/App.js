@@ -28,11 +28,8 @@ class App extends React.Component {
 
   initWord () {
     const list = ['JAUNE', 'ROUGE', 'VERT','BLEU']
-    const nbr = Math.floor(Math.random() * list.length)
-
-    return (
-      list[nbr]
-    );
+    
+    return list[Math.floor(Math.random() * list.length)]
   }
 // retourne true si la keyvalue est comprise dans le tableau isClickedArray
 
