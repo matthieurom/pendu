@@ -11,6 +11,7 @@ class App extends React.Component {
     masque: 'JAUNE',
     isClickedArray: [],
     count: 0,
+
   }
 
   getIsCliked (index) {
@@ -28,7 +29,6 @@ class App extends React.Component {
 
 
   handleClick = (a) => {
-    const isClickedArray = this.state.isClickedArray
     const masque = this.state.masque
     const masqueSplit = masque.split(''); // permet de diviser la phrase ne liste de lettres
     const newList = [a]
@@ -51,7 +51,7 @@ class App extends React.Component {
 
   handleGame = () => {
     this.setState(DEFAULT_STATE)
-  }
+    }
 
   render() {
     const masque = this.state.masque
@@ -60,58 +60,58 @@ class App extends React.Component {
     const count = this.state.count
 
 
-    if(!win) {
-      if(count<15) {
-        return (
+   if(!win) {
+     if(count<15) {
+      return (
 
-          <div className="App">
-            <header>Jeu du pendu</header>
-            <div className ="keyboard">
-              {letters.map(({letter, key}) => (
-                <Keyboard
-                  letter = {letter}
-                  onClickButton = {this.handleClick}
-                  key = {key}
-                  ind = {key}
-                  isClicked = {this.getIsCliked(key)}
-                />
-              ))}
-            </div>
-
-            <div className = 'masque'>
-              <ComputeDisplay phrase = {masque} usedLetters = {isClickedArray}/>
-            </div>
-            <div className="compteur" >
-              {count}
-            </div>
-
-            <div>
-              <p>Essaie de devinez le mot en moins de <strong>15 tentatives !</strong></p>
-            </div>
-          </div>
-        )
-      }
-      else {
-        return(
-          <div className ="rejouer">
-            <h1> Perdu ... Essai encore</h1>
-            <button onClick = {this.handleGame}>Rejouer ?</button>
+        <div className="App">
+         <header>Jeu du pendu</header>
+         <div className ="keyboard">
+          {letters.map(({letter, key}) => (
+          <Keyboard
+          letter = {letter}
+          onClickButton = {this.handleClick}
+          key = {key}
+          ind = {key}
+          isClicked = {this.getIsCliked(key)}
+          />
+         ))}
           </div>
 
+          <div className = 'masque'>
+            <ComputeDisplay phrase = {masque} usedLetters = {isClickedArray}/>
+          </div>
+          <div className="compteur" >
+          {count}
+          </div>
+
+          <div>
+            <p>Essaie de devinez le mot en moins de <strong>15 tentatives !</strong></p>
+           </div>
+        </div>
         )
-      }
-
-    }
-
-    else {
+     }
+     else {
       return(
         <div className ="rejouer">
-          <h1> Gagné ! Bien joué</h1>
-          <button onClick = {this.handleGame}>Rejouer ?</button>
+               <h1> Perdu ... Essai encore</h1>
+               <button onClick = {this.handleGame}>Rejouer ?</button>
         </div>
 
       )
-    }
+     }
+
+   }
+
+   else {
+     return(
+       <div className ="rejouer">
+              <h1> Gagné ! Bien joué</h1>
+              <button onClick = {this.handleGame}>Rejouer ?</button>
+       </div>
+
+     )
+   }
   }
 
 }
@@ -153,7 +153,7 @@ const letters = [
   {letter: 'X', key: 'X'},
   {letter: 'Y', key: 'Y'},
   {letter: 'Z', key: 'Z'},
-]
+  ]
 
 
 export default App;
