@@ -57,6 +57,7 @@ class App extends React.Component {
   
   handleGame = () => {
     this.setState(DEFAULT_STATE)
+    this.setState({masque: this.initWord()})
     }
 
   render() {
