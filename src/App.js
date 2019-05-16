@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import Keyboard from './Keyboard.js'
-import PropTypes from 'prop-types'
 
 const DEFAULT_STATE = { win: false, isClickedArray: [], count: 0}
 
@@ -9,17 +8,10 @@ class App extends React.Component {
 
   state = {
     win: false,
-    masque: 'JAUNE',
+    masque: this.initWord(),
     isClickedArray: [],
     count: 0,
 
-  }
-
-  static propTypes = {
-    win: PropTypes.bool.isRequired,
-    masque: PropTypes.string.isRequired,
-    isClickedArray: PropTypes.array.isRequired,
-    count: PropTypes.number.isRequired
   }
 
   getIsCliked (index) {
@@ -33,11 +25,19 @@ class App extends React.Component {
       return false
     }
   }
+
+  initWord () {
+    const list = ['JAUNE', 'ROUGE', 'VERT','BLEU']
+    const nbr = Math.floor(Math.random() * list.length)
+
+    return (
+      list[nbr]
+    );
+  }
 // retourne true si la keyvalue est comprise dans le tableau isClickedArray
 
 
   handleClick = (a) => {
-    const isClickedArray = this.state.isClickedArray
     const masque = this.state.masque
     const masqueSplit = masque.split(''); // permet de diviser la phrase ne liste de lettres
 
@@ -73,13 +73,13 @@ class App extends React.Component {
         <div className="App">
          <header>Jeu du pendu</header>
          <div className ="keyboard">
-          {letters.map(({letter, key}) => ( 
+          {letters.map((value) => ( 
           <Keyboard 
-          letter = {letter}
+          letter = {value}
           onClickButton = {this.handleClick}
-          key = {key}
-          ind = {key} 
-          isClicked = {this.getIsCliked(key)}
+          key = {value}
+          ind = {value} 
+          isClicked = {this.getIsCliked(value)}
           />
          ))}
           </div>
@@ -132,34 +132,6 @@ function ComputeDisplay(props) {
  
 
  
-const letters = [
-  {letter: 'A', key: 'A'},
-  {letter: 'B', key: 'B'},
-  {letter: 'C', key: 'C'},
-  {letter: 'D', key: 'D'},
-  {letter: 'E', key: 'E'},
-  {letter: 'F', key: 'F'},
-  {letter: 'G', key: 'G'},
-  {letter: 'H', key: 'H'},
-  {letter: 'I', key: 'I'},
-  {letter: 'J', key: 'J'},
-  {letter: 'K', key: 'K'},
-  {letter: 'L', key: 'L'},
-  {letter: 'M', key: 'M'},
-  {letter: 'N', key: 'N'},
-  {letter: 'O', key: 'O'},
-  {letter: 'P', key: 'P'},
-  {letter: 'Q', key: 'Q'},
-  {letter: 'R', key: 'R'},
-  {letter: 'S', key: 'S'},
-  {letter: 'T', key: 'T'},
-  {letter: 'U', key: 'U'},
-  {letter: 'V', key: 'V'},
-  {letter: 'W', key: 'W'},
-  {letter: 'X', key: 'X'},
-  {letter: 'Y', key: 'Y'},
-  {letter: 'Z', key: 'Z'},
-  ]
-
+const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
 export default App;
